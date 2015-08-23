@@ -16,7 +16,15 @@ import org.uqbar.arena.widgets.tables.Column
 class VistaPrincipalWindow extends MainWindow<Receta> {
 	
 	new(){
-		super(new RecetaBuilder("Arroz Blanco").calorias(10).autor("Antonio Gasalla").dificultad("Facil").procesoPreparacion("Hervir el arroz. Comer.").temporada("Invierno").agregar(new IngredienteBuilder("arroz").cantidad(2).build()).build())
+		super(new RecetaBuilder("Arroz Blanco")
+			.calorias(10)
+			.autor("Antonio Gasalla")
+			.dificultad("Facil")
+			.procesoPreparacion("Hervir el arroz. Comer.")
+			.temporada("Invierno")
+			.agregarIngrediente(new IngredienteBuilder("arroz").cantidad(2).build())
+			.agregarIngrediente(new IngredienteBuilder("arroz2").cantidad(2).build())
+			.build())
 	}
 
 	override createContents(Panel mainPanel) {
@@ -24,7 +32,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		title = "Detalle de receta"
 // el mainPanel lo divido en 3, una parte bajo la otra
 
-// ----------TOP PANEL---------------
+// ----------TOP PANEL---------------	
 
 		val topPanel = new Panel (mainPanel)
 		new Label (topPanel).bindValueToProperty("nombreDeLaReceta")
