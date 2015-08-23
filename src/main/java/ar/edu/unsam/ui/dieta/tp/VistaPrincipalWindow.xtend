@@ -1,5 +1,6 @@
 package ar.edu.unsam.ui.dieta.tp
 
+import ar.tp.dieta.Ingrediente
 import ar.tp.dieta.IngredienteBuilder
 import ar.tp.dieta.Receta
 import ar.tp.dieta.RecetaBuilder
@@ -8,6 +9,9 @@ import org.uqbar.arena.windows.MainWindow
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.bindings.ObservableProperty
+import org.uqbar.arena.widgets.tables.Column
 
 class VistaPrincipalWindow extends MainWindow<Receta> {
 	
@@ -39,7 +43,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		new Label (izqPanel).setText("Dificultad")
 		new Label (izqPanel) // bindear a la dificultad de la receta modelo
 		new Label (izqPanel).setText("Ingredientes")
-		// ACA HAY QUE AGREGAR LA GRILLA DE INGREDIENTES
+		crearGrillaIngredientes(izqPanel) // el binding no está bien hecho
 		//ACA HAY QUE AGREGAR EL CHECKBOX DE FAVORITA
 		
 		val derPanel = new Panel (centerPanel) // columna der
@@ -77,6 +81,25 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 
 */
 	}
+	
+		def crearGrillaIngredientes(Panel unPanel){
+			val grillaIngredientes = new Table (unPanel, typeof(Ingrediente) ) =>[
+				width = 600
+				height = 400				
+				bindItems(new ObservableProperty(this.modelObject, "ingredientes")) //acá el binding supone se puede hacer receta.ingredientes (y esto devuelve lista de ingredientes
+			]
+			new Column<Ingrediente>(grillaIngredientes) => [
+			title = "Dosis"
+			bindContentsToProperty("cantidad")
+			]
+		
+			new Column<Ingrediente>(grillaIngredientes) => [
+			title = "Ingrediente"
+			bindContentsToProperty("nombre")
+			]
+		}
+	
+	
 	
 	def static main(String[] args){
 		new VistaPrincipalWindow().startApplication
