@@ -61,7 +61,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 //----------------------botPanel---------------------
 
 		val botPanel = new Panel(mainPanel)
-		new Label (botPanel).setText("Proceso de preparacion")
+		new Label (botPanel).setText("Proceso de preparacion:")
 		new Label (botPanel).bindValueToProperty("procesoDePreparacion")	
 		
 		
@@ -88,7 +88,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 			val grillaIngredientes = new Table (unPanel, typeof(Ingrediente) ) =>[
 				width = 600
 				height = 400				
-				bindItems(new ObservableProperty(this.modelObject, "elementosDeReceta")) //acá el binding supone se puede hacer receta.ingredientes (y esto devuelve lista de ingredientes
+				bindItems(new ObservableProperty(this.modelObject, "ingredientes")) //acá el binding supone se puede hacer receta.ingredientes (y esto devuelve lista de ingredientes
 			]
 			new Column<Ingrediente>(grillaIngredientes) => [
 			title = "Dosis"
