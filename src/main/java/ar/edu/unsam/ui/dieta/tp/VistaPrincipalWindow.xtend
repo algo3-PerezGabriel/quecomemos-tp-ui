@@ -16,25 +16,18 @@ import org.uqbar.arena.widgets.tables.Column
 class VistaPrincipalWindow extends MainWindow<Receta> {
 	
 	new(){
-		super(new RecetaBuilder("Arroz Blanco")
-			.calorias(10)
-			.autor("Antonio Gasalla")
-			.dificultad("Facil")
-			.procesoPreparacion("Hervir el arroz. Comer.")
-			.temporada("Invierno")
-			.agregarIngrediente(new IngredienteBuilder("arroz").cantidad(2).build())
-			.agregarIngrediente(new IngredienteBuilder("arroz2").cantidad(2).build())
-			.build())
+		super(new RecetaBuilder("Arroz Blanco").calorias(10).autor("Antonio Gasalla").dificultad("Facil").procesoPreparacion("Hervir el arroz. Comer.").temporada("Invierno").agregar(new IngredienteBuilder("arroz").cantidad("200 g").build()).build())
 	}
 
 	override createContents(Panel mainPanel) {
 		
 		title = "Detalle de receta"
-// el mainPanel lo divido en 3, una parte bajo la otra
+// el mainPanel lo divido en 3, unax parte bajo la otra
 
-// ----------TOP PANEL---------------	
+// ----------TOP PANEL---------------
 
 		val topPanel = new Panel (mainPanel)
+		topPanel.layout = new ColumnLayout(1)
 		new Label (topPanel).bindValueToProperty("nombreDeLaReceta")
 		val datosPanel = new Panel (topPanel) // aca se meten las calorias y el creador
 		datosPanel.layout = new HorizontalLayout
@@ -92,24 +85,23 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 */
 	}
 	
-		def crearGrillaIngredientes(Panel unPanel){
-			val grillaIngredientes = new Table (unPanel, typeof(Ingrediente) ) =>[
-				width = 600
-				height = 400				
-				bindItems(new ObservableProperty(this.modelObject, "ingredientes")) //acá el binding supone se puede hacer receta.ingredientes (y esto devuelve lista de ingredientes
-			]
-			new Column<Ingrediente>(grillaIngredientes) => [
-			title = "Dosis"
-			bindContentsToProperty("cantidad")
-			]
+	def crearGrillaIngredientes(Panel unPanel){
+		val grillaIngredientes = new Table (unPanel, typeof(Ingrediente) ) =>[
+			width = 600
+			height = 400				
+			bindItems(new ObservableProperty(this.modelObject, "ingredientes")) //acá el binding supone se puede hacer receta.ingredientes (y esto devuelve lista de ingredientes
+		]
+
+		new Column<Ingrediente>(grillaIngredientes) => [
+		title = "Dosis"
+		bindContentsToProperty("cantidad")
+		]
 		
-			new Column<Ingrediente>(grillaIngredientes) => [
+		new Column<Ingrediente>(grillaIngredientes) => [
 			title = "Ingrediente"
 			bindContentsToProperty("nombre")
-			]
-		}
-	
-	
+		]
+	}
 	
 	def static main(String[] args){
 		new VistaPrincipalWindow().startApplication
