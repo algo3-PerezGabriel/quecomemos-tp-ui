@@ -30,7 +30,9 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		new Label (topPanel).bindValueToProperty("nombreDeLaReceta")
 		val datosPanel = new Panel (topPanel) // aca se meten las calorias y el creador
 		datosPanel.layout = new HorizontalLayout
-		new Label(datosPanel).bindValueToProperty("calorias") 
+		new Label(datosPanel).bindValueToProperty("calorias")
+		new Label(datosPanel).setText("Calorias")
+		new Label(datosPanel).setText("Creado por: ")
 		new Label(datosPanel).bindValueToProperty("autor")
 
 //---------------end topPanel---------------		
@@ -41,14 +43,14 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		centerPanel.layout = new ColumnLayout(2) //el panel central q tenga 2 columnas
 		val izqPanel = new Panel (centerPanel) // columna izq
 		new Label (izqPanel).setText("Dificultad")
-		new Label (izqPanel) // bindear a la dificultad de la receta modelo
+		new Label (izqPanel).bindValueToProperty("dificultadDePreparacion") 
 		new Label (izqPanel).setText("Ingredientes")
 		crearGrillaIngredientes(izqPanel) // el binding no está bien hecho
 		//ACA HAY QUE AGREGAR EL CHECKBOX DE FAVORITA
 		
 		val derPanel = new Panel (centerPanel) // columna der
 		new Label (derPanel).setText("Temporada")
-		new Label (derPanel) // bind a temporada del modelo
+		new Label (derPanel).bindValueToProperty("temporadaALaQueCorresponde")
 		new Label (derPanel).setText ("Condimentos")
 		//ACA HAY QUE AGREGAR EL TEXTBOX PARA LOS CONDIMENTOS
 		new Label (derPanel).setText("CondicionesPreexistentes")
@@ -60,7 +62,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 
 		val botPanel = new Panel(mainPanel)
 		new Label (botPanel).setText("Proceso de preparacion")
-		//aca se pone el objeto que contenga el texto de preparacion que no se cual es.
+		new Label (botPanel).bindValueToProperty("procesoDePreparacion")	
 		
 		
 //--------------------------end botPanel---------------
@@ -86,7 +88,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 			val grillaIngredientes = new Table (unPanel, typeof(Ingrediente) ) =>[
 				width = 600
 				height = 400				
-				bindItems(new ObservableProperty(this.modelObject, "ingredientes")) //acá el binding supone se puede hacer receta.ingredientes (y esto devuelve lista de ingredientes
+				bindItems(new ObservableProperty(this.modelObject, "elementosDeReceta")) //acá el binding supone se puede hacer receta.ingredientes (y esto devuelve lista de ingredientes
 			]
 			new Column<Ingrediente>(grillaIngredientes) => [
 			title = "Dosis"
