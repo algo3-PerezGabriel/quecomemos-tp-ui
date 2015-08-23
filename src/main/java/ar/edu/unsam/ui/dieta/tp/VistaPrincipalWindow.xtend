@@ -27,11 +27,11 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 // ----------TOP PANEL---------------
 
 		val topPanel = new Panel (mainPanel)
-		new Label (topPanel) // se bindea al nombre de la receta
+		new Label (topPanel).bindValueToProperty("nombreDeLaReceta")
 		val datosPanel = new Panel (topPanel) // aca se meten las calorias y el creador
 		datosPanel.layout = new HorizontalLayout
-		new Label(datosPanel) //se bindea a las calorias
-		new Label(datosPanel) // se bindea al creador
+		new Label(datosPanel).bindValueToProperty("calorias") 
+		new Label(datosPanel).bindValueToProperty("autor")
 
 //---------------end topPanel---------------		
 
