@@ -16,7 +16,7 @@ import org.uqbar.arena.widgets.tables.Column
 class VistaPrincipalWindow extends MainWindow<Receta> {
 	
 	new(){
-		super(new RecetaBuilder("Arroz Blanco").calorias(10).autor("Antonio Gasalla").dificultad("Facil").procesoPreparacion("Hervir el arroz. Comer.").temporada("Invierno").agregar(new IngredienteBuilder("arroz").cantidad("200 g").build()).build())
+		super(new RecetaBuilder("Arroz Blanco").calorias(10).autor("Antonio Gasalla").dificultad("Facil").procesoPreparacion("Hervir el arroz. Comer.").temporada("Invierno").agregar(new IngredienteBuilder("arroz").cantidad(500).build()).build())
 	}
 
 	override createContents(Panel mainPanel) {
