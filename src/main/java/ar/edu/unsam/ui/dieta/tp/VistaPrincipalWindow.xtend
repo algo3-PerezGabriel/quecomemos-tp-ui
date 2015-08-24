@@ -13,7 +13,6 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.List
-import org.uqbar.arena.bindings.PropertyAdapter
 
 class VistaPrincipalWindow extends MainWindow<Receta> {
 	
@@ -25,6 +24,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 			.temporada("Invierno")
 			.agregarIngrediente(new IngredienteBuilder("arroz").cantidad(500).build())
 			.agregarIngrediente(new IngredienteBuilder("papa").cantidad(200).build())
+			.agregarIngrediente(new IngredienteBuilder("azucar").cantidad(200).build())
 			.agregarCondimento(new IngredienteBuilder("sal").build())
 			.agregarCondimento(new IngredienteBuilder("vinagre").build())
 			.build()
@@ -41,7 +41,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		val topPanel = new Panel (mainPanel)
 		topPanel.layout = new ColumnLayout(1)
 		new Label (topPanel).bindValueToProperty("nombreDeLaReceta")
-		val datosPanel = new Panel (topPanel) // aca se meten las calorias y el creador
+		val datosPanel = new Panel (topPanel)
 		datosPanel.layout = new HorizontalLayout
 		new Label(datosPanel).bindValueToProperty("calorias")
 		new Label(datosPanel).setText("Calorias")
@@ -53,12 +53,12 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 //---------------centerPanel------------
 
 		val centerPanel = new Panel(mainPanel) 
-		centerPanel.layout = new ColumnLayout(2) //el panel central q tenga 2 columnas
-		val izqPanel = new Panel (centerPanel) // columna izq
+		centerPanel.layout = new ColumnLayout(2)
+		val izqPanel = new Panel (centerPanel)
 		new Label (izqPanel).setText("Dificultad")
 		new Label (izqPanel).bindValueToProperty("dificultadDePreparacion") 
 		new Label (izqPanel).setText("Ingredientes")
-		crearGrillaIngredientes(izqPanel) // el binding no está bien hecho
+		crearGrillaIngredientes(izqPanel) 
 		//ACA HAY QUE AGREGAR EL CHECKBOX DE FAVORITA
 		
 		val derPanel = new Panel (centerPanel) // columna der
@@ -66,15 +66,17 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		new Label (derPanel).bindValueToProperty("temporadaALaQueCorresponde")
 		new Label (derPanel).setText ("Condimentos")
 		
-		new List<Ingrediente> (derPanel)=> [ // TODO ESTO PARECE FUNCIONAR, PERO NO SE COMO LO HACE
+		new List (derPanel).bindItemsToProperty("condimentos")
+		/* Ahora se trabaja con una lista de string
+		=> [ // TODO ESTO PARECE FUNCIONAR, PERO NO SE COMO LO HACE
 			bindItems(new ObservableProperty (this.modelObject, "condimentos"))
 			.adapter = (new PropertyAdapter(typeof(Ingrediente), "nombre"))
 			width = 50
 			height = 50
-			]
+			]*/
 			
 		new Label (derPanel).setText("CondicionesPreexistentes")
-		//ACA HAY QUE AGREGAR EL LIST DE LAS CONDICIONES PREEXISTENTES
+		new List (derPanel).bindItemsToProperty("inadecuadaCondiciones")
 		
 //------------------------end centerPanel---------------------
 
