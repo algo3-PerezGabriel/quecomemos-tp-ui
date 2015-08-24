@@ -13,7 +13,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.List
-import org.uqbar.arena.bindings.PropertyAdapter
+//import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.widgets.CheckBox
 
 class VistaPrincipalWindow extends MainWindow<Receta> {
@@ -70,12 +70,13 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		new Label (derPanel).bindValueToProperty("temporadaALaQueCorresponde")
 
 		new Label (derPanel).setText ("Condimentos")
-		new List<Ingrediente> (derPanel)=> [
+		new List<Ingrediente> (derPanel).bindItemsToProperty("condimentos")
+		/*=> [
 			bindItems(new ObservableProperty (this.modelObject, "condimentos"))
 			.adapter = (new PropertyAdapter(typeof(Ingrediente), "nombre"))
 			width = 50
 			height = 50
-			]
+			]*/
 		
 		new Label (derPanel).setText("CondicionesPreexistentes")
 		new List<String> (derPanel)=> [ 
