@@ -13,6 +13,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.CheckBox
 
 class VistaPrincipalWindow extends MainWindow<Receta> {
 	
@@ -59,7 +60,10 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		new Label (izqPanel).bindValueToProperty("dificultadDePreparacion") 
 		new Label (izqPanel).setText("Ingredientes")
 		crearGrillaIngredientes(izqPanel) 
-		//ACA HAY QUE AGREGAR EL CHECKBOX DE FAVORITA
+		val favoritaPanel = new Panel (izqPanel)
+		favoritaPanel.layout = new HorizontalLayout
+		new CheckBox(favoritaPanel)//falta el binding, hay que  reajustar el objeto modelo
+		new Label (favoritaPanel).setText("Favorita")
 		
 		val derPanel = new Panel (centerPanel) // columna der
 		new Label (derPanel).setText("Temporada")
@@ -93,7 +97,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 	def crearGrillaIngredientes(Panel unPanel){
 		val grillaIngredientes = new Table (unPanel, typeof(Ingrediente) ) =>[
 			width = 600
-			height = 400				
+			height = 800				
 			bindItems(new ObservableProperty(this.modelObject, "ingredientes")) 
 		]
 
