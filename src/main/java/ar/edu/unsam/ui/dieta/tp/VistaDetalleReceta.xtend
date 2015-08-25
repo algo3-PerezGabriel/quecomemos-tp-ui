@@ -16,7 +16,7 @@ import org.uqbar.arena.widgets.List
 //import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.widgets.CheckBox
 
-class VistaPrincipalWindow extends MainWindow<Receta> {
+class VistaDetalleReceta extends MainWindow<Receta> {
 	
 	new(){
 		super(new RecetaBuilder("Arroz Blanco")
@@ -97,7 +97,7 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 	}
 	
 	def static main(String[] args){
-		new VistaPrincipalWindow().startApplication
+		new VistaDetalleReceta().startApplication
 	}
 		
 }
