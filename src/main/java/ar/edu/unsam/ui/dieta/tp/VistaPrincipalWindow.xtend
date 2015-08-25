@@ -24,10 +24,11 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 			.dificultad("Facil")
 			.procesoPreparacion("Hervir el arroz. Comer.")
 			.temporada("Invierno")
-			.agregarIngrediente(new IngredienteBuilder("arroz").cantidad(500).build())
-			.agregarIngrediente(new IngredienteBuilder("papa").cantidad(200).build())
+			.agregarIngrediente(new IngredienteBuilder("Arroz Blanco").cantidad(500).build())
+			.agregarIngrediente(new IngredienteBuilder("Pollo Entero").cantidad(1).build())
 			.agregarCondimento(new IngredienteBuilder("sal").build())
-			.agregarCondimento(new IngredienteBuilder("vinagre").build())
+			.agregarCondimento(new IngredienteBuilder("Aceite").build())
+			.agregarCondimento(new IngredienteBuilder("Azafrán").build())
 			.build()
 		)
 	}
@@ -35,8 +36,6 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 	override createContents(Panel mainPanel) {
 		title = "Detalle de receta"
 
-// ----------TOP PANEL---------------
-		
 		val topPanel = new Panel (mainPanel)
 		topPanel.layout = new ColumnLayout(1)
 		new Label (topPanel).bindValueToProperty("nombreDeLaReceta")
@@ -47,10 +46,6 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		new Label(datosPanel).setText("Creado por: ")
 		new Label(datosPanel).bindValueToProperty("autor")
 
-//---------------end topPanel---------------		
-
-//---------------centerPanel------------
-		
 		val centerPanel = new Panel(mainPanel) 
 		centerPanel.layout = new ColumnLayout(2)
 
@@ -71,12 +66,6 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 
 		new Label (derPanel).setText ("Condimentos")
 		new List<Ingrediente> (derPanel).bindItemsToProperty("condimentos")
-		/*=> [
-			bindItems(new ObservableProperty (this.modelObject, "condimentos"))
-			.adapter = (new PropertyAdapter(typeof(Ingrediente), "nombre"))
-			width = 50
-			height = 50
-			]*/
 		
 		new Label (derPanel).setText("CondicionesPreexistentes")
 		new List<String> (derPanel)=> [ 
@@ -87,8 +76,6 @@ class VistaPrincipalWindow extends MainWindow<Receta> {
 		new Label (botPanel).setText("Proceso de preparacion:")
 		new Label (botPanel).bindValueToProperty("procesoDePreparacion")	
 		
-		
-//--------------------------end botPanel---------------
 	}
 	
 	def crearGrillaIngredientes(Panel unPanel){
