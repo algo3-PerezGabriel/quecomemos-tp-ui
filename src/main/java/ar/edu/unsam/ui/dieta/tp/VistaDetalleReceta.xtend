@@ -15,6 +15,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.List
 //import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Button
 
 class VistaDetalleReceta extends MainWindow<Receta> {
 	
@@ -74,7 +75,11 @@ class VistaDetalleReceta extends MainWindow<Receta> {
 
 		val botPanel = new Panel(mainPanel)
 		new Label (botPanel).setText("Proceso de preparacion:")
-		new Label (botPanel).bindValueToProperty("procesoDePreparacion")	
+		new Label (botPanel).bindValueToProperty("procesoDePreparacion")
+		new Button(botPanel) => [
+      		setCaption("Volver")
+      		onClick [|] //BINDEAR A VistaBienvenidoWindow
+		]
 		
 	}
 	
