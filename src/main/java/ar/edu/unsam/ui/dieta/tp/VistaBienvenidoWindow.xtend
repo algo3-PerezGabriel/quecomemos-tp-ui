@@ -9,18 +9,19 @@ import ar.tp.dieta.Receta
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.widgets.tables.Column
+import ar.edu.unsam.vistas.models.ModeloVistaBienvenido
 
-class VistaBienvenidoWindow extends MainWindow<Object> { //FALTA EL MODEL OBJECT
+class VistaBienvenidoWindow extends MainWindow<ModeloVistaBienvenido> { //FALTA EL MODEL OBJECT
 	
-	new(Object model) {
-		super(model)
+	new() {
+		super(new ModeloVistaBienvenido())
 	}
 	
 	override createContents(Panel mainPanel) {
 		title = "Bienvenoido a ¿Qué Comemos?"
 		
-		new Label (mainPanel).setText("Estas fueron tus últimas consultas")
-		
+		new Label (mainPanel).bindValueToProperty("tituloGrilla")//es calculable
+
 		crearGrillaRecetas(mainPanel)
 		
 		val buttonsPanel = new Panel(mainPanel)
@@ -35,7 +36,8 @@ class VistaBienvenidoWindow extends MainWindow<Object> { //FALTA EL MODEL OBJECT
 		]
 	}
 	
-	def crearGrillaRecetas(Panel unPanel) {
+	def crearGrillaRecetas(Panel unPanel) { //falta el comportamiento de colores segun tipo receta
+											//
 		val grillaRecetas = new Table(unPanel, typeof(Receta))=>[
 		width = 600
 		height = 400				
