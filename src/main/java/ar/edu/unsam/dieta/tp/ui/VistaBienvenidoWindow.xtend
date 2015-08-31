@@ -84,7 +84,7 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 	}
 	
 	def void visualizarReceta(){
-		this.openDialog(new VistaDetalleReceta(this, modelObject.recetaSeleccionada))
+		this.openDialog(new VistaDetalleReceta(this, modelObject.vistaDetalle()))
 	}
 
 	def openDialog(Dialog<?> dialog) {
@@ -93,6 +93,7 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 	}
 
 	def favearReceta(QueComemosAppModel model){
+	
 	}
 	
 	def static main(String[] args){

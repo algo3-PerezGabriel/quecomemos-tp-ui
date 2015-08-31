@@ -34,6 +34,7 @@ class QueComemosAppModel extends RepoRecetas {
 					.preferencia("carne")
 					.preferencia("pescado")
 					.email("mujersincondicion@test.com")
+					.conRecetaFavorita(gelatinaFrambuesa)
 					.build()		
 		Marcela => [
 			agregarBusqueda(busquedaPorIngredienteCaro)
@@ -48,12 +49,11 @@ class QueComemosAppModel extends RepoRecetas {
 
 	//Falta Definir comportamientos de favoritas	
 	def getFavorita(){
-		//Marcela.agregarRecetaFavorita(arrozConPollo.nombreDeLaReceta)
-		//Marcela.contenesEstaRecetaEnFavs(arrozConPollo.nombreDeLaReceta)
+		
 	}
 
 	def setFavorita(){
-		//Marcela.agregarRecetaFavorita(arrozConPollo.nombreDeLaReceta)		
+	
 	}
 	
 	def ultimasConsultas(){
@@ -73,4 +73,10 @@ class QueComemosAppModel extends RepoRecetas {
 			}
 		}
 	}
+	
+	def vistaDetalle() {
+		var modeloDetalle = new VistaRecetaModel(Marcela, recetaSeleccionada)
+		modeloDetalle
+	}
+	
 }
