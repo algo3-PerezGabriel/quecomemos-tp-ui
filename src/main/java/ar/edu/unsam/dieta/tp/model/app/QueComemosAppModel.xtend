@@ -40,20 +40,6 @@ class QueComemosAppModel extends RepoRecetas {
 			agregarBusqueda(busquedaPorIngredienteCaro)
 			setRecetario(recetarioPublico)
 		]
-		
-		//Verificado OK si se agregan Recetas Favoritas por default.
-		//Marcela.agregarRecetaFavorita(arrozConPollo) 
-		//Marcela.agregarRecetaFavorita(lomoMostaza)
-		
-	}
-
-	//Falta Definir comportamientos de favoritas	
-	def getFavorita(){
-		
-	}
-
-	def setFavorita(){
-	
 	}
 	
 	def ultimasConsultas(){
