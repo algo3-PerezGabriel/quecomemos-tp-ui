@@ -8,13 +8,13 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class VistaRecetaModel {
+
 	Usuario elUsuario
 	Receta laReceta
 	
 	new(Usuario unUsuario,Receta unaReceta){
 		elUsuario = unUsuario
 		laReceta = unaReceta
-	
 	}
 	
 	def getEsFavorita(){
@@ -22,7 +22,7 @@ class VistaRecetaModel {
 	}
 	
 	def setEsFavorita(){
+		elUsuario.agregarRecetaFavorita(laReceta)
 	}
-
 	
 }

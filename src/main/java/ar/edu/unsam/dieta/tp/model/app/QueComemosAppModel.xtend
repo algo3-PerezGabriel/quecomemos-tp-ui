@@ -34,7 +34,6 @@ class QueComemosAppModel extends RepoRecetas {
 					.preferencia("carne")
 					.preferencia("pescado")
 					.email("mujersincondicion@test.com")
-//					.conRecetaFavorita(gelatinaFrambuesa)
 					.build()		
 		theUser => [
 			agregarBusqueda(busquedaPorIngredienteCaro)
@@ -55,19 +54,16 @@ class QueComemosAppModel extends RepoRecetas {
 			else{ //Si no hay recetas favoritas ni busquedas
 				output = "Estas son las recetas top del momento"
 				theUser.busquedaFiltrada()
-			//	return(Marcela.acciones.getRecetasFinales)
 			}
 		}
 	}
 	
-	def favearReceta(){// ESTO NO ESTÁ LINDO, FUNCIONA PERO DEBERÍA TENER UNA SOLUCION MEJOR
-		if(theUser.tieneFavorita(recetaSeleccionada)){theUser.quitarFavorita(recetaSeleccionada)}
-		else{theUser.agregarRecetaFavorita(recetaSeleccionada)}
+	def favearReceta(){
+			theUser.agregarRecetaFavorita(recetaSeleccionada)
 	}
 	
 	def vistaDetalle() {
-		var modeloDetalle = new VistaRecetaModel(theUser, recetaSeleccionada)
-		modeloDetalle
+		new VistaRecetaModel(theUser, recetaSeleccionada)
 	}
 	
 }
