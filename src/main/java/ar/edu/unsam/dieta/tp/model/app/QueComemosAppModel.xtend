@@ -15,7 +15,7 @@ import ar.tp.dieta.Receta
 @Accessors
 class QueComemosAppModel extends RepoRecetas {
 	
-	Usuario Marcela
+	Usuario theUser
 	String output
 	AgregaResultadosAFavoritos accionConsulta
 	Receta recetaSeleccionada
@@ -25,7 +25,7 @@ class QueComemosAppModel extends RepoRecetas {
 	
 	new(){
 		new RepoRecetas	//Creo las recetas usando la clase RepoRecetas del domain.
-		Marcela = new UsuarioBuilder("Marcela")
+		theUser = new UsuarioBuilder("Marcela")
 					.peso(120.4)
 					.altura(1.75)
 					.fechaNacimiento(1992, 6, 4)
@@ -34,9 +34,9 @@ class QueComemosAppModel extends RepoRecetas {
 					.preferencia("carne")
 					.preferencia("pescado")
 					.email("mujersincondicion@test.com")
-					.conRecetaFavorita(gelatinaFrambuesa)
+//					.conRecetaFavorita(gelatinaFrambuesa)
 					.build()		
-		Marcela => [
+		theUser => [
 			agregarBusqueda(busquedaPorIngredienteCaro)
 			setRecetario(recetarioPublico)
 		]
@@ -57,25 +57,30 @@ class QueComemosAppModel extends RepoRecetas {
 	}
 	
 	def ultimasConsultas(){
-		if(!Marcela.recetasFavoritas.isEmpty){ //Si hay recetas Favoritas.
+		if(!theUser.recetasFavoritas.isEmpty){ //Si hay recetas Favoritas.
 			output = "Estas son tus recetas favoritas"
-			Marcela.recetasFavoritas
+			theUser.recetasFavoritas
 		}
 		else{
-			if(!Marcela.misBusquedas.isEmpty){ //Si hay busquedas
+			if(!theUser.misBusquedas.isEmpty){ //Si hay busquedas
 				output = "Estas fueron tus últimas consultas"
-				Marcela.busquedaFiltrada()
+				theUser.busquedaFiltrada()
 			}
 			else{ //Si no hay recetas favoritas ni busquedas
 				output = "Estas son las recetas top del momento"
-				Marcela.busquedaFiltrada()
+				theUser.busquedaFiltrada()
 			//	return(Marcela.acciones.getRecetasFinales)
 			}
 		}
 	}
 	
+	def favearReceta(){// ESTO NO ESTÁ LINDO, FUNCIONA PERO DEBERÍA TENER UNA SOLUCION MEJOR
+		if(theUser.tieneFavorita(recetaSeleccionada)){theUser.quitarFavorita(recetaSeleccionada)}
+		else{theUser.agregarRecetaFavorita(recetaSeleccionada)}
+	}
+	
 	def vistaDetalle() {
-		var modeloDetalle = new VistaRecetaModel(Marcela, recetaSeleccionada)
+		var modeloDetalle = new VistaRecetaModel(theUser, recetaSeleccionada)
 		modeloDetalle
 	}
 	

@@ -22,7 +22,6 @@ class VistaRecetaModel {
 	}
 	
 	def setEsFavorita(){
-		
 	}
 
 	

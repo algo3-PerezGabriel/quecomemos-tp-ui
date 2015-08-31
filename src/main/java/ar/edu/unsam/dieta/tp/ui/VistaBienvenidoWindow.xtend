@@ -91,10 +91,6 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 		dialog.onAccept[|modelObject.ultimasConsultas]
 		dialog.open
 	}
-
-	def favearReceta(QueComemosAppModel model){
-	
-	}
 	
 	def static main(String[] args){
 		new  VistaBienvenidoWindow().startApplication()
