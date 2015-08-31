@@ -1,41 +1,28 @@
-package ar.edu.unsam.ui.dieta.tp
+package ar.edu.unsam.dieta.tp.ui
 
 import ar.tp.dieta.Ingrediente
-import ar.tp.dieta.IngredienteBuilder
 import ar.tp.dieta.Receta
-import ar.tp.dieta.RecetaBuilder
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.MainWindow
-import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.bindings.ObservableProperty
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.widgets.List
-//import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.WindowOwner
 
-class VistaDetalleReceta extends MainWindow<Receta> {
-	
-	new(){
-		super(new RecetaBuilder("Arroz Blanco")
-			.calorias(10).autor("Antonio Gasalla")
-			.dificultad("Facil")
-			.procesoPreparacion("Hervir el arroz. Comer.")
-			.temporada("Invierno")
-			.agregarIngrediente(new IngredienteBuilder("Arroz Blanco").cantidad(500).build())
-			.agregarIngrediente(new IngredienteBuilder("Pollo Entero").cantidad(1).build())
-			.agregarCondimento(new IngredienteBuilder("sal").build())
-			.agregarCondimento(new IngredienteBuilder("Aceite").build())
-			.agregarCondimento(new IngredienteBuilder("Azafrán").build())
-			.build()
-		)
+class VistaDetalleReceta extends TransactionalDialog<Receta> {
+
+	new (WindowOwner window, Receta modelo){
+		super(window, modelo)
+		title = "Detalle de receta"
 	}
 
-	override createContents(Panel mainPanel) {
-		title = "Detalle de receta"
+	override protected createFormPanel(Panel mainPanel) {
 
 		val topPanel = new Panel (mainPanel)
 		topPanel.layout = new ColumnLayout(1)
@@ -78,7 +65,7 @@ class VistaDetalleReceta extends MainWindow<Receta> {
 		new Label (botPanel).bindValueToProperty("procesoDePreparacion")
 		new Button(botPanel) => [
       		setCaption("Volver")
-      		onClick [|] //BINDEAR A VistaBienvenidoWindow
+      		onClick [|this.cancel]
 		]
 		
 	}
@@ -101,8 +88,5 @@ class VistaDetalleReceta extends MainWindow<Receta> {
 		]
 	}
 	
-	def static main(String[] args){
-		new VistaDetalleReceta().startApplication
-	}
 		
 }
