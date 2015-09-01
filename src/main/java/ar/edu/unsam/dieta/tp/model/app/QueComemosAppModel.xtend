@@ -43,7 +43,8 @@ class QueComemosAppModel extends RepoRecetas {
 					.preferencia("carne")
 					.preferencia("pescado")
 					.email("mujersincondicion@test.com")
-					//.conRecetaFavorita(gelatinaFrambuesa)
+					//.conRecetaFavorita(gelatinaFrambuesa) Recetas favoritas del repo publico
+					//.conRecetaFavorita(arrozConPollo)
 					.build()
 		theUser => [
 			agregarBusqueda(busquedaPorIngredienteCaro)
