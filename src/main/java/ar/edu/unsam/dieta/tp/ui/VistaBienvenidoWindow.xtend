@@ -70,23 +70,6 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 		]
 
 	}
-	
-	def colorearRecetas(Column<Receta> it) {
-		bindBackground("devolverme").transformer = [ Receta unaReceta | 
-			if(modelObject.theUser.misRecetas.contains(unaReceta)){
-				Color.RED //Recetas que fueron creadas por el usuario EN ROJO
-			}
-			else{
-				if(modelObject.recetarioPublico.recetas.contains(unaReceta)){
-					Color.GREEN //Recetas PUBLICAS en VERDE.
-				}
-				else{
-					Color.ORANGE //Recetas que son de otro usuario que pertenece al mismo grupo EN NARANJA
-				}
-			}
-		]
-	}
-	
 		
 	def createAccionesGrilla(Panel panel) {
 		val elementSelected = new NotNullObservable("recetaSeleccionada")
@@ -113,6 +96,22 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 	def openDialog(Dialog<?> dialog) {
 		dialog.onAccept[|modelObject.ultimasConsultas]
 		dialog.open
+	}
+		
+	def colorearRecetas(Column<Receta> it) {
+		bindBackground("devolverme").transformer = [ Receta unaReceta | 
+			if(modelObject.theUser.creeEstaReceta(unaReceta)){
+				Color.RED //Recetas que fueron creadas por el usuario EN ROJO.
+			}
+			else{
+				if(modelObject.recetarioPublico.recetarioContiene(unaReceta)){
+					Color.MAGENTA //Recetas PUBLICAS en MAGENTA.
+				}
+				else{
+					Color.YELLOW //Recetas que son de otro usuario que pertenece al mismo grupo EN AMARILLO.
+				}
+			}
+		]
 	}
 	
 	def static main(String[] args){

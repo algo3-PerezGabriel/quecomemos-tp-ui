@@ -34,7 +34,7 @@ class QueComemosAppModel extends RepoRecetas {
 	
 	new(){
 		new RepoRecetas	//Creo las recetas usando la clase RepoRecetas del domain.
-		theUser = new UsuarioBuilder("Marcela")
+		theUser = new UsuarioBuilder("Marcela") //Creacion usuario Marcela
 					.peso(120.4)
 					.altura(1.75)
 					.fechaNacimiento(1992, 6, 4)
