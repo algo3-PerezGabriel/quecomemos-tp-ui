@@ -12,6 +12,11 @@ import ar.tp.dieta.FiltroExcesoDeCalorias
 import ar.tp.dieta.Receta
 import java.util.List
 import java.util.ArrayList
+import ar.tp.dieta.FiltroPorCondicion
+import ar.tp.dieta.CondicionVegano
+import ar.tp.dieta.IngredienteBuilder
+import ar.tp.dieta.CondicionDiabetes
+import ar.tp.dieta.CondicionHipertension
 
 @Observable
 @Accessors
@@ -39,10 +44,12 @@ class QueComemosAppModel extends RepoRecetas {
 					.preferencia("pescado")
 					.email("mujersincondicion@test.com")
 					//.conRecetaFavorita(gelatinaFrambuesa)
-					.build()		
+					.build()
 		theUser => [
 			agregarBusqueda(busquedaPorIngredienteCaro)
 			setRecetario(recetarioPublico)
+			crearReceta("Pastel de papa", 1500, "Marcela", "Very dificult", "Hervir la papa, sellar la carne picada, mezclar ambas en una fuente y poner durante 40 minutos en el horno", "Todo el año", new IngredienteBuilder("carne picada").cantidad(500).build(), new IngredienteBuilder("papa").cantidad(300).build())
+			crearReceta("Fideos con Tuco", 400, "Marcela", "Facil", "Hervir los fideos, mezclar con la salsa de tomate caliente.", "Todo el año", new IngredienteBuilder("fideos").cantidad(200).build(), new IngredienteBuilder("tomate").cantidad(300).build())
 		]
 		topTenConsultas = recetarioPublico.getRecetas
 	}

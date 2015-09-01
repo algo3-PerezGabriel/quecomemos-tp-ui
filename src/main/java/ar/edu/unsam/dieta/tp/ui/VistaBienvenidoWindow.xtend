@@ -2,6 +2,7 @@ package ar.edu.unsam.dieta.tp.ui
 
 import ar.edu.unsam.dieta.tp.model.app.QueComemosAppModel
 import ar.tp.dieta.Receta
+import java.awt.Color
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.ColumnLayout
@@ -11,8 +12,8 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.windows.MainWindow
 import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.windows.MainWindow
 
 class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 	
@@ -44,22 +45,45 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 			title = "Nombre"
 			fixedSize = 200
 			bindContentsToProperty("nombreDeLaReceta")
-			
+			colorearRecetas(it)
 		]
+
 		new Column<Receta>(grillaRecetas) => [
 			title = "Calorias"
 			fixedSize = 100
 			bindContentsToProperty("calorias")
+			colorearRecetas(it)
 		]
+
 		new Column<Receta>(grillaRecetas) => [
 			title = "Dificultad"
 			fixedSize = 100
 			bindContentsToProperty("dificultadDePreparacion")
+			colorearRecetas(it)
 		]
+
 		new Column<Receta>(grillaRecetas) => [
 			title = "Temporada"
 			fixedSize = 150
 			bindContentsToProperty("temporadaALaQueCorresponde")
+			colorearRecetas(it)
+		]
+
+	}
+	
+	def colorearRecetas(Column<Receta> it) {
+		bindBackground("devolverme").transformer = [ Receta unaReceta | 
+			if(modelObject.theUser.misRecetas.contains(unaReceta)){
+				Color.RED //Recetas que fueron creadas por el usuario EN ROJO
+			}
+			else{
+				if(modelObject.recetarioPublico.recetas.contains(unaReceta)){
+					Color.GREEN //Recetas PUBLICAS en VERDE.
+				}
+				else{
+					Color.ORANGE //Recetas que son de otro usuario que pertenece al mismo grupo EN NARANJA
+				}
+			}
 		]
 	}
 	
