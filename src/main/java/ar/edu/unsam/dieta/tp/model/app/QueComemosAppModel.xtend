@@ -22,9 +22,9 @@ class QueComemosAppModel extends RepoRecetas {
 	AgregaResultadosAFavoritos accionConsulta
 	Receta recetaSeleccionada
 	List<Receta> topTenConsultas = new ArrayList<Receta>
-//	Busqueda busquedaPorIngredienteCaro = new Busqueda => [
-//			agregarFiltro(new FiltroExcesoDeCalorias) //Filtra las recetas que tienen 500 o menos cal
-//	]
+	Busqueda busquedaPorIngredienteCaro = new Busqueda => [
+			agregarFiltro(new FiltroExcesoDeCalorias) //Filtra las recetas que tienen 500 o menos cal
+	]
 	
 	
 	new(){
@@ -38,13 +38,13 @@ class QueComemosAppModel extends RepoRecetas {
 					.preferencia("carne")
 					.preferencia("pescado")
 					.email("mujersincondicion@test.com")
-//					.conRecetaFavorita(gelatinaFrambuesa)
+					//.conRecetaFavorita(gelatinaFrambuesa)
 					.build()		
-//		theUser => [
-//			agregarBusqueda(busquedaPorIngredienteCaro)
-//			setRecetario(recetarioPublico)
-//		]
-		topTenConsultas = recetarioPublico.getRecetas //aca inicializar con datos de ejemplo el TOPTEN
+		theUser => [
+			agregarBusqueda(busquedaPorIngredienteCaro)
+			setRecetario(recetarioPublico)
+		]
+		topTenConsultas = recetarioPublico.getRecetas
 	}
 	
 	def ultimasConsultas(){
@@ -53,9 +53,9 @@ class QueComemosAppModel extends RepoRecetas {
 			theUser.recetasFavoritas
 		}
 		else{
-			if(!theUser.sinConsultadas){ //Si hay busquedas
+			if(!theUser.misBusquedas.empty){ //Si hay busquedas
 				output = "Estas fueron tus últimas consultas"
-				theUser.ultimasConsultadas
+				theUser.busquedaFiltrada()
 			}
 			else{ //Si no hay recetas favoritas ni busquedas
 				output = "Estas son las recetas top del momento"
@@ -64,9 +64,13 @@ class QueComemosAppModel extends RepoRecetas {
 		}
 	}
 	
-	def favearReceta(){// ESTO NO ESTÁ LINDO, FUNCIONA PERO DEBERÍA TENER UNA SOLUCION MEJOR
-		if(theUser.tieneFavorita(recetaSeleccionada)){theUser.quitarFavorita(recetaSeleccionada)}
-		else{theUser.agregarRecetaFavorita(recetaSeleccionada)}
+	def favearReceta(){
+		if(theUser.tieneFavorita(recetaSeleccionada)){
+			theUser.quitarFavorita(recetaSeleccionada)
+		}
+		else{
+			theUser.agregarRecetaFavorita(recetaSeleccionada)
+		}
 	}
 	
 	def vistaDetalle() {

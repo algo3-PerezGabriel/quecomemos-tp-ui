@@ -44,6 +44,7 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 			title = "Nombre"
 			fixedSize = 200
 			bindContentsToProperty("nombreDeLaReceta")
+			
 		]
 		new Column<Receta>(grillaRecetas) => [
 			title = "Calorias"
@@ -64,8 +65,6 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 	
 		
 	def createAccionesGrilla(Panel panel) {
-
-		// Deshabilitar los botones si no hay ningún elemento seleccionado en la grilla.
 		val elementSelected = new NotNullObservable("recetaSeleccionada")
 		val buttonsPanel = new Panel(panel).layout = new HorizontalLayout
 		
