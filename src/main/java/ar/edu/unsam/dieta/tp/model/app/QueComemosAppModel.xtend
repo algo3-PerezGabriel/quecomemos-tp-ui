@@ -10,6 +10,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import ar.tp.dieta.FiltroExcesoDeCalorias
 import ar.tp.dieta.Receta
+import java.util.List
+import java.util.ArrayList
 
 @Observable
 @Accessors
@@ -19,9 +21,11 @@ class QueComemosAppModel extends RepoRecetas {
 	String output
 	AgregaResultadosAFavoritos accionConsulta
 	Receta recetaSeleccionada
-	Busqueda busquedaPorIngredienteCaro = new Busqueda => [
-			agregarFiltro(new FiltroExcesoDeCalorias) //Filtra las recetas que tienen 500 o menos cal
-	]
+	List<Receta> topTenConsultas = new ArrayList<Receta>
+//	Busqueda busquedaPorIngredienteCaro = new Busqueda => [
+//			agregarFiltro(new FiltroExcesoDeCalorias) //Filtra las recetas que tienen 500 o menos cal
+//	]
+	
 	
 	new(){
 		new RepoRecetas	//Creo las recetas usando la clase RepoRecetas del domain.
@@ -35,25 +39,27 @@ class QueComemosAppModel extends RepoRecetas {
 					.preferencia("pescado")
 					.email("mujersincondicion@test.com")
 					.build()		
-		theUser => [
-			agregarBusqueda(busquedaPorIngredienteCaro)
-			setRecetario(recetarioPublico)
-		]
+//		theUser => [
+//			agregarBusqueda(busquedaPorIngredienteCaro)
+//			setRecetario(recetarioPublico)
+//		]
+		topTenConsultas = recetarioPublico.getRecetas //aca inicializar con datos de ejemplo el TOPTEN
 	}
 	
 	def ultimasConsultas(){
-		if(!theUser.recetasFavoritas.isEmpty){ //Si hay recetas Favoritas.
+		if(!theUser.sinFavoritas){ //Si hay recetas Favoritas.
 			output = "Estas son tus recetas favoritas"
 			theUser.recetasFavoritas
 		}
 		else{
-			if(!theUser.misBusquedas.isEmpty){ //Si hay busquedas
+			if(!theUser.sinConsultadas){ //Si hay busquedas
 				output = "Estas fueron tus últimas consultas"
-				theUser.busquedaFiltrada()
+				theUser.ultimasConsultadas
 			}
 			else{ //Si no hay recetas favoritas ni busquedas
 				output = "Estas son las recetas top del momento"
 				theUser.busquedaFiltrada()
+				this.topTenConsultas
 			}
 		}
 	}
