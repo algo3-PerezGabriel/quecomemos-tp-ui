@@ -4,7 +4,6 @@ import ar.edu.unsam.dieta.tp.model.app.QueComemosAppModel
 import ar.tp.dieta.Receta
 import java.awt.Color
 import org.uqbar.arena.bindings.NotNullObservable
-import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -13,19 +12,22 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.windows.MainWindow
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.windows.WindowOwner
 
-class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
+class VistaBienvenidoWindow extends TransactionalDialog<QueComemosAppModel> {
+
 	
-	new() {
-		super(new QueComemosAppModel())
+	new(WindowOwner owner, QueComemosAppModel model) {
+		super(owner, model)
+		title = "Bienvenido a que comemos?"
 	}
 	
-	override createContents(Panel mainPanel) {
+	override protected createFormPanel(Panel mainPanel) {
 
-		title = "Bienvenido a ¿Qué Comemos?"
+		//title = "Bienvenido a ¿Qué Comemos?"
 		val topPanel = new Panel (mainPanel).layout = new ColumnLayout(1)
-		new Label (topPanel).bindValueToProperty("output")
+		new Label (topPanel).bindValueToProperty("outputTituloGrilla")
 
 		this.crearGrillaRecetas(mainPanel)
 		this.createAccionesGrilla(mainPanel)
@@ -37,7 +39,7 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 		val grillaRecetas = new Table(unPanel, typeof(Receta))=>[
 			width = 600
 			height = 400
-			bindItems(new ObservableProperty(this.modelObject,"ultimasConsultas"))
+			bindItemsToProperty("recetasEnGrilla")
 			bindValueToProperty("recetaSeleccionada")
 		]
 		
@@ -95,28 +97,24 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 	}
 
 	def openDialog(Dialog<?> dialog) {
-		dialog.onAccept[|modelObject.ultimasConsultas]
+		//dialog.onAccept[|modelObject.recetasEnGrilla]
 		dialog.open
 	}
 		
 	def colorearRecetas(Column<Receta> it) {
 		bindBackground("devolverme").transformer = [ Receta unaReceta | 
 			if(modelObject.theUser.creeEstaReceta(unaReceta)){
-				Color.RED //Recetas que fueron creadas por el usuario EN ROJO.
+				Color.GREEN //Recetas que fueron creadas por el usuario EN verde.
 			}
 			else{
-				if(modelObject.recetarioPublico.recetarioContiene(unaReceta)){
-					Color.MAGENTA //Recetas PUBLICAS en MAGENTA.
+				if(modelObject.recetario.recetarioContiene(unaReceta)){
+					Color.BLUE //Recetas PUBLICAS en azul.
 				}
 				else{
 					Color.YELLOW //Recetas que son de otro usuario que pertenece al mismo grupo EN AMARILLO.
 				}
 			}
 		]
-	}
-	
-	def static main(String[] args){
-		new  VistaBienvenidoWindow().startApplication()
 	}
 	
 }
