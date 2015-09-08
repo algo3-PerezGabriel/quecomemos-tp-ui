@@ -73,6 +73,7 @@ class VistaBienvenidoWindow extends MainWindow<QueComemosAppModel> {
 		
 	def createAccionesGrilla(Panel panel) {
 		val elementSelected = new NotNullObservable("recetaSeleccionada")
+		
 		val buttonsPanel = new Panel(panel).layout = new HorizontalLayout
 		
 		new Button(buttonsPanel) => [

@@ -45,7 +45,9 @@ class VistaDetalleReceta extends TransactionalDialog<VistaRecetaModel> {
 
 		val favoritaPanel = new Panel (izqPanel)
 		favoritaPanel.layout = new HorizontalLayout
+		
 		new CheckBox(favoritaPanel).bindValueToProperty("esFavorita")
+		
 		new Label (favoritaPanel).setText("Favorita")
 		
 		val derPanel = new Panel (centerPanel) // columna der
