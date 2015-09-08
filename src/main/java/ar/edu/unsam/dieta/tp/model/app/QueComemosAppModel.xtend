@@ -12,11 +12,7 @@ import ar.tp.dieta.FiltroExcesoDeCalorias
 import ar.tp.dieta.Receta
 import java.util.List
 import java.util.ArrayList
-import ar.tp.dieta.FiltroPorCondicion
-import ar.tp.dieta.CondicionVegano
 import ar.tp.dieta.IngredienteBuilder
-import ar.tp.dieta.CondicionDiabetes
-import ar.tp.dieta.CondicionHipertension
 
 @Observable
 @Accessors
