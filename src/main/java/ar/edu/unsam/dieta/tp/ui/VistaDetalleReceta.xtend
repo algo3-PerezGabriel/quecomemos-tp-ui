@@ -14,6 +14,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.unsam.dieta.tp.model.app.VistaRecetaModel
+import org.uqbar.arena.windows.Dialog
 
 class VistaDetalleReceta extends TransactionalDialog<VistaRecetaModel> {
 
@@ -67,10 +68,24 @@ class VistaDetalleReceta extends TransactionalDialog<VistaRecetaModel> {
 		new Label (botPanel).bindValueToProperty("laReceta.procesoDePreparacion")
 		new Button(botPanel) => [
       		setCaption("Volver")
-      		onClick [|this.cancel]
+      		onClick [|this.close]
 		]
-		
+		new Button(botPanel) => [
+      		setCaption("Copiar")
+      		onClick [|this.copiar()]
+		]
 	}
+	
+
+	def void copiar(){
+		this.openDialog(new VistaCopiarReceta(this, modelObject.inicializarModeloCopiar()))
+	}
+
+	def openDialog(Dialog<?> dialog) {
+		dialog.open
+	}
+	
+	
 	
 	def crearGrillaIngredientes(Panel unPanel){
 		val grillaIngredientes = new Table (unPanel, typeof(Ingrediente) ) =>[

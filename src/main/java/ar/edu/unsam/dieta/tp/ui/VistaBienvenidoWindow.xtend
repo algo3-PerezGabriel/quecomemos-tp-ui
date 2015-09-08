@@ -14,6 +14,9 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.widgets.CheckBox
 
 class VistaBienvenidoWindow extends TransactionalDialog<QueComemosAppModel> {
 
@@ -24,10 +27,46 @@ class VistaBienvenidoWindow extends TransactionalDialog<QueComemosAppModel> {
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-
-		//title = "Bienvenido a ¿Qué Comemos?"
-		val topPanel = new Panel (mainPanel).layout = new ColumnLayout(1)
-		new Label (topPanel).bindValueToProperty("outputTituloGrilla")
+		
+		val busquedaPanel = new Panel(mainPanel).layout = new ColumnLayout(2)
+		val izqPanel = new Panel(busquedaPanel)
+		new Label(izqPanel).setText("Nombre")
+		new TextBox(izqPanel).bindValueToProperty("conNombre")
+		new Label(izqPanel).setText("Dificultad")
+		new Selector(izqPanel)=>[
+			allowNull = false
+			bindItemsToProperty("dificultades")	
+			bindValueToProperty("conDificultad")
+			]
+		new Label(izqPanel).setText("Que Contenga Ingrediente: ")
+		new TextBox(izqPanel).bindValueToProperty("conIngrediente")
+		
+		val derPanel = new Panel(busquedaPanel)
+		new Label(derPanel).setText("Calorias")
+		val caloriasPanel = new Panel(derPanel).layout = new HorizontalLayout()
+		new Label(caloriasPanel).setText("De: ") 
+		new TextBox(caloriasPanel).bindValueToProperty("caloriasInferior")
+		new Label(caloriasPanel).setText("a :")
+		new TextBox(caloriasPanel).bindValueToProperty("caloriasSuperior")
+		new Label(derPanel).setText("Temporada") 
+		new Selector(derPanel)=>[
+			allowNull = false
+			bindValueToProperty("conTemporada")
+			bindItemsToProperty("temporadas")
+			]
+		val filtrosCheckPanel = new Panel(derPanel).layout = new HorizontalLayout
+		new CheckBox(filtrosCheckPanel).bindValueToProperty("conFiltrosUsuario")
+		new Label(filtrosCheckPanel).setText("Aplicar filtros del usuario")
+		
+		val busquedaButtonPanel = new Panel(mainPanel).layout = new HorizontalLayout
+		new Button(busquedaButtonPanel) => [
+			caption = "Buscar"
+			onClick = [|modelObject.ejecutarBusqueda]
+		]
+		
+		
+		val grillPanel = new Panel (mainPanel).layout = new ColumnLayout(1)
+		new Label (grillPanel).bindValueToProperty("outputTituloGrilla")
 
 		this.crearGrillaRecetas(mainPanel)
 		this.createAccionesGrilla(mainPanel)
