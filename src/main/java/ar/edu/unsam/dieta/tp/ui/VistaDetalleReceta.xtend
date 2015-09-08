@@ -32,7 +32,7 @@ class VistaDetalleReceta extends TransactionalDialog<VistaRecetaModel> {
 		new Label(datosPanel).bindValueToProperty("laReceta.calorias")
 		new Label(datosPanel).setText("Calorias")
 		new Label(datosPanel).setText("Creado por: ")
-		new Label(datosPanel).bindValueToProperty("laReceta.owner.getNombre")
+		new Label(datosPanel).bindValueToProperty("laReceta.owner.nombre")
 
 		val centerPanel = new Panel(mainPanel) 
 		centerPanel.layout = new ColumnLayout(2)
